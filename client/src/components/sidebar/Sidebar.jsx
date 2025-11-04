@@ -45,8 +45,8 @@ const navItems = [
 ];
 
 const dropdownOptions = [
-  { text: "Catalog", path: "/dataprovider/catalog" },
   { text: "Offer", path: "/dataprovider/offer" },
+  { text: "Catalog", path: "/dataprovider/catalog" },
   { text: "Representation", path: "/dataprovider/representation" },
   { text: "Contract", path: "/dataprovider/contract" },
 ];
