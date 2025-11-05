@@ -17,6 +17,7 @@ import Offer from 'scenes/DataProvider/Offer.jsx';
 import Representation from 'scenes/DataProvider/Representation.jsx';
 import Contract from 'scenes/DataProvider/Contract.jsx';
 import Catalog from 'scenes/DataProvider/Catalog.jsx';
+import Artifact from 'scenes/DataProvider/Artifact.jsx';
 
 function App() {
   const mode = useSelector((state) => state.global.mode);
@@ -35,6 +36,7 @@ function App() {
             <Route path="/dataprovider/Catalog" element={<Catalog />} />
             <Route path="/dataprovider/Contract" element={<Contract />} />
             <Route path="/dataprovider/representation" element={<Representation />} />
+            <Route path="/dataprovider/artifact" element={<Artifact />} />
             <Route path="/dataprovider/offer" element={<Offer />} />
             <Route path="/dataconsumer" element={<DataConsumer/>} />
 

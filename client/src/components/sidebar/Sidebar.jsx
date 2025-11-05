@@ -48,6 +48,7 @@ const dropdownOptions = [
   { text: "Offer", path: "/dataprovider/offer" },
   { text: "Catalog", path: "/dataprovider/catalog" },
   { text: "Representation", path: "/dataprovider/representation" },
+  { text: "Artifact", path: "/dataprovider/artifact" },
   { text: "Contract", path: "/dataprovider/contract" },
 ];
 

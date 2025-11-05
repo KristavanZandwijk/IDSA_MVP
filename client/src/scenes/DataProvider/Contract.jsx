@@ -1,6 +1,12 @@
 import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import Header from "components/Header";
+import ContractOverview from "components/ContractOverview";
+import RulesOverview from "components/RulesOverview";
+import CreateNewRule from "components/CreateNewRule";
+import CreateNewContract from "components/CreateNewContract";
+import LinkRulesToContract from "components/LinkRulesToContract";
+import LinkContractToOffer from "components/LinkContractToOffer";
 
 
 const Contract = () => {
@@ -19,45 +25,27 @@ const Contract = () => {
         {/* LEFT BOX */}
         <Box
           flex={1}
-          p="1.5rem"
-          borderRadius="1rem"
-          bgcolor={theme.palette.background.alt}
-          sx={{ boxShadow: 3, minHeight: "200px" }}
+          display="flex"
+          flexDirection="column"
+          gap="2rem"
+          alignItems="stretch"
         >
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            color={theme.palette.secondary[100]}
-            mb="1rem"
-          >
-            Contracts Overview
-          </Typography>
-
-          <Typography variant="body1" color={theme.palette.neutral[200]}>
-            This is an empty box. You can place content here.
-          </Typography>
+          <ContractOverview/>
+          <RulesOverview/>
         </Box>
 
         {/* RIGHT BOX */}
         <Box
           flex={1}
-          p="1.5rem"
-          borderRadius="1rem"
-          bgcolor={theme.palette.background.alt}
-          sx={{ boxShadow: 3, minHeight: "200px" }}
+          display="flex"
+          flexDirection="column"
+          gap="2rem"
+          alignItems="stretch"
         >
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            color={theme.palette.secondary[100]}
-            mb="1rem"
-          >
-            Create New Contract
-          </Typography>
-
-          <Typography variant="body1" color={theme.palette.neutral[200]}>
-            This is another empty box. Add any content or components you like.
-          </Typography>
+          <CreateNewContract/>
+          <CreateNewRule/>
+          <LinkRulesToContract/>
+          <LinkContractToOffer/>
         </Box>
       </Box>
     </Box>

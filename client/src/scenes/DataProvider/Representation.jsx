@@ -1,6 +1,9 @@
 import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import Header from "components/Header";
+import RepresentationsOverview from "components/RepresentationsOverview";
+import CreateNewRepresentation from "components/CreateNewRepresentation";
+import LinkRepresentationToOffer from "components/LinkRepresentationToOffer";
 
 const Representation = () => {
   const theme = useTheme();
@@ -19,6 +22,7 @@ const Representation = () => {
         flexDirection={{ xs: "column", md: "row" }}
         gap="2rem"
         mt="2rem"
+        alignItems="stretch" // ensures children stretch to equal height
       >
         {/* LEFT BOX */}
         <Box
@@ -28,40 +32,19 @@ const Representation = () => {
           bgcolor={theme.palette.background.alt}
           sx={{ boxShadow: 3, minHeight: "200px" }}
         >
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            color={theme.palette.secondary[100]}
-            mb="1rem"
-          >
-            Representation Overview
-          </Typography>
-
-          <Typography variant="body1" color={theme.palette.neutral[200]}>
-            This is an empty box. You can place content here.
-          </Typography>
+          <RepresentationsOverview/>
         </Box>
 
         {/* RIGHT BOX */}
         <Box
           flex={1}
-          p="1.5rem"
-          borderRadius="1rem"
-          bgcolor={theme.palette.background.alt}
-          sx={{ boxShadow: 3, minHeight: "200px" }}
+          display="flex"
+          flexDirection="column"
+          gap="2rem"
+          alignItems="stretch" // ensures children stretch naturally
         >
-          <Typography
-            variant="h4"
-            fontWeight="bold"
-            color={theme.palette.secondary[100]}
-            mb="1rem"
-          >
-            Create New Representation
-          </Typography>
-
-          <Typography variant="body1" color={theme.palette.neutral[200]}>
-            This is another empty box. Add any content or components you like.
-          </Typography>
+          <CreateNewRepresentation/>
+          <LinkRepresentationToOffer/>
         </Box>
       </Box>
     </Box>

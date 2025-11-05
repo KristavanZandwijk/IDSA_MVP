@@ -3,6 +3,7 @@ import { Box, useTheme } from "@mui/material";
 import Header from "components/Header";
 import OfferOverview from "components/OfferOverview";
 import CreateNewOffer from "components/CreateNewOffer";
+import CompleteDataOffers from "components/CompleteDataOffers";
 
 const Offer = () => {
   const theme = useTheme();
@@ -26,6 +27,7 @@ const Offer = () => {
           sx={{ boxShadow: 3 }}
         >
           <OfferOverview />
+          <CompleteDataOffers/>
         </Box>
 
         {/* RIGHT: Create New Offer */}
