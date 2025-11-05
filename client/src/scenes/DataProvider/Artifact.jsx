@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
 import Header from "components/Header";
-import ArtifactOverview from "components/ArtifactOverview";
-import CreateNewArtifact from "components/CreateNewArtifact";
-import LinkArtifactToRepresentation from "components/LinkedArtifactToRepresentation";
+import ArtifactOverview from "components/ConnectorA/ArtifactOverview";
+import CreateNewArtifact from "components/ConnectorA/CreateNewArtifact";
+import LinkArtifactToRepresentation from "components/ConnectorA/LinkedArtifactToRepresentation";
 
 
 const Artifact = () => {

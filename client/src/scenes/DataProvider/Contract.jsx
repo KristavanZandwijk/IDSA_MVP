@@ -1,12 +1,12 @@
 import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import Header from "components/Header";
-import ContractOverview from "components/ContractOverview";
-import RulesOverview from "components/RulesOverview";
-import CreateNewRule from "components/CreateNewRule";
-import CreateNewContract from "components/CreateNewContract";
-import LinkRulesToContract from "components/LinkRulesToContract";
-import LinkContractToOffer from "components/LinkContractToOffer";
+import ContractOverview from "components/ConnectorA/ContractOverview";
+import RulesOverview from "components/ConnectorA/RulesOverview";
+import CreateNewRule from "components/ConnectorA/CreateNewRule";
+import CreateNewContract from "components/ConnectorA/CreateNewContract";
+import LinkRulesToContract from "components/ConnectorA/LinkRulesToContract";
+import LinkContractToOffer from "components/ConnectorA/LinkContractToOffer";
 
 
 const Contract = () => {

@@ -148,7 +148,14 @@ const CreateNewOffer = () => {
   };
 
   return (
-    <Box component="form" onSubmit={handleSubmit}>
+    <Box 
+      component="form" 
+      onSubmit={handleSubmit}
+      flex={1}
+      p="1.5rem"
+      borderRadius="1rem"
+      bgcolor={theme.palette.background.alt}
+      sx={{ boxShadow: 3 }}>
       <Typography variant="h4" fontWeight="bold" mb={3}>
         Create New Offer
       </Typography>

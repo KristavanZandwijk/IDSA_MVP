@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
 import Header from "components/Header";
-import CatalogOverview from "components/CatalogOverview";
-import CreateNewCatalog from "components/CreateNewCatalog";
-import LinkOfferToCatalog from "components/LinkOfferToCatalog";
+import CatalogOverview from "components/ConnectorA/CatalogOverview";
+import CreateNewCatalog from "components/ConnectorA/CreateNewCatalog";
+import LinkOfferToCatalog from "components/ConnectorA/LinkOfferToCatalog";
 
 const Catalog = () => {
   const theme = useTheme();

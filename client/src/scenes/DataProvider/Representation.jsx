@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Typography, useTheme } from "@mui/material";
 import Header from "components/Header";
-import RepresentationsOverview from "components/RepresentationsOverview";
-import CreateNewRepresentation from "components/CreateNewRepresentation";
-import LinkRepresentationToOffer from "components/LinkRepresentationToOffer";
+import RepresentationsOverview from "components/ConnectorA/RepresentationsOverview";
+import CreateNewRepresentation from "components/ConnectorA/CreateNewRepresentation";
+import LinkRepresentationToOffer from "components/ConnectorA/LinkRepresentationToOffer";
 
 const Representation = () => {
   const theme = useTheme();

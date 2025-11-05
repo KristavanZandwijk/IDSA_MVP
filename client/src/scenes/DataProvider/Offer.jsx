@@ -1,9 +1,8 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
 import Header from "components/Header";
-import OfferOverview from "components/OfferOverview";
-import CreateNewOffer from "components/CreateNewOffer";
-import CompleteDataOffers from "components/CompleteDataOffers";
+import OfferOverview from "components/ConnectorA/OfferOverview";
+import CreateNewOffer from "components/ConnectorA/CreateNewOffer";
 
 const Offer = () => {
   const theme = useTheme();
@@ -21,22 +20,21 @@ const Offer = () => {
         {/* LEFT: Offer Overview */}
         <Box
           flex={1}
-          p="1.5rem"
-          borderRadius="1rem"
-          bgcolor={theme.palette.background.alt}
-          sx={{ boxShadow: 3 }}
+          display="flex"
+          flexDirection="column"
+          gap="2rem"
+          alignItems="stretch"
         >
           <OfferOverview />
-          <CompleteDataOffers/>
         </Box>
 
         {/* RIGHT: Create New Offer */}
         <Box
           flex={1}
-          p="1.5rem"
-          borderRadius="1rem"
-          bgcolor={theme.palette.background.alt}
-          sx={{ boxShadow: 3 }}
+          display="flex"
+          flexDirection="column"
+          gap="2rem"
+          alignItems="stretch"
         >
           <CreateNewOffer />
         </Box>

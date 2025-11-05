@@ -3,7 +3,7 @@ import { Box, Typography, useTheme, Button } from "@mui/material";
 import Header from "components/Header";
 import { useNavigate } from "react-router-dom";
 import UMLDiagram from "assets/UML_Offer.png";
-import CatalogOverview from "components/CatalogOverview";
+
 
 const DataProvider = () => {
   const theme = useTheme();

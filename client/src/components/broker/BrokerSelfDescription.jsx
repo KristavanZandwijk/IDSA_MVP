@@ -5,29 +5,32 @@ import {
   CircularProgress,
   Card,
   CardContent,
-  Chip,
   Button,
   useTheme,
+  Divider,
+  Alert,
 } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-const CompleteDataOffers = () => {
-  const theme = useTheme();
-  const [offers, setOffers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const BrokerSelfDescription = () => {
+  const theme = useTheme(); // ✅ define theme
 
- 
   return (
-    <Box p={3}>
+    <Box
+      flex={1}
+      p="1.5rem"
+      borderRadius="1rem"
+      bgcolor={theme.palette.background.alt} // now theme is defined
+      sx={{ boxShadow: 3 }}
+    >
+      {/* Header */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h4" fontWeight="bold" color={theme.palette.secondary[100]}>
-          Complete Data Offers
+          Broker Self-Description
         </Typography>
       </Box>
-
     </Box>
   );
 };
 
-export default CompleteDataOffers;
+export default BrokerSelfDescription;

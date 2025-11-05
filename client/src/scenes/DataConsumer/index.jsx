@@ -5,7 +5,7 @@ import Header from "components/Header";
 const DataConsumer = () => {
   return (
     <Box m="2rem">
-      <Header title="Catalogs" subtitle="View catalogs provided via your connector." />
+      <Header title="Data Consumer" subtitle="View the Received Data here." />
     </Box>
   );
 };
