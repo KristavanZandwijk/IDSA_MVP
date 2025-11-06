@@ -13,7 +13,6 @@ import {
 } from "@mui/material";
 import RefreshIcon from "@mui/icons-material/Refresh";
 
-// --- ReceivedData Component ---
 const ReceivedData = ({ agreementSelfLink }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -108,7 +107,7 @@ const ReceivedData = ({ agreementSelfLink }) => {
   );
 };
 
-// --- AgreementOverview Component ---
+
 const AgreementOverview = () => {
   const theme = useTheme();
 
@@ -116,8 +115,8 @@ const AgreementOverview = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [visibleCount, setVisibleCount] = useState(4); // initially show 4
 
-  // Fetch agreements
   const fetchAgreements = async () => {
     setLoading(true);
     setError(null);
@@ -154,10 +153,10 @@ const AgreementOverview = () => {
     return { complete: missing.length === 0, missing };
   };
 
-  const filteredAgreements = agreements.filter((a) => {
+  // Filter & search agreements
+  let filteredAgreements = agreements.filter((a) => {
     const value = JSON.parse(a.value || "{}");
-    const title =
-      value["ids:permission"]?.[0]?.["ids:title"]?.[0]?.["@value"]?.toLowerCase() || "";
+    const title = value["ids:permission"]?.[0]?.["ids:title"]?.[0]?.["@value"]?.toLowerCase() || "";
     const provider = value["ids:provider"]?.["@id"]?.toLowerCase() || "";
     const consumer = value["ids:consumer"]?.["@id"]?.toLowerCase() || "";
     return (
@@ -167,12 +166,22 @@ const AgreementOverview = () => {
     );
   });
 
+  // Sort newest to oldest by contractDate
+  filteredAgreements.sort((a, b) => {
+    const aDate = new Date(JSON.parse(a.value || "{}")["ids:contractDate"]?.["@value"] || 0);
+    const bDate = new Date(JSON.parse(b.value || "{}")["ids:contractDate"]?.["@value"] || 0);
+    return bDate - aDate;
+  });
+
+  // Slice to show only visibleCount
+  const visibleAgreements = filteredAgreements.slice(0, visibleCount);
+
   return (
     <Box flex={1} p="1.5rem" borderRadius="1rem" bgcolor={theme.palette.background.alt} sx={{ boxShadow: 3 }}>
       {/* Header */}
       <Box display="flex" justifyContent="space-between" alignItems="center" mb={2}>
         <Typography variant="h4" fontWeight="bold" color={theme.palette.secondary[100]}>
-          Agreement Overview
+          Contract Overview
         </Typography>
         <Button
           variant="contained"
@@ -186,7 +195,7 @@ const AgreementOverview = () => {
       </Box>
 
       <Typography variant="body1" color={theme.palette.neutral[200]} mb={2}>
-        Complete agreements are shown in <strong style={{ color: "green" }}>green</strong>, incomplete in <strong style={{ color: "red" }}>red</strong>.
+        Complete agreements are shown in <strong style={{ color: "green" }}>green</strong>, incomplete in <strong style={{ color: "red" }}>red</strong>. For complete contract, it is possible to access the data. Click the link to view the data!
       </Typography>
 
       <Box mb={2}>
@@ -211,65 +220,74 @@ const AgreementOverview = () => {
         <Typography mt={2}>No agreements found.</Typography>
       )}
 
-      {!loading && !error && filteredAgreements.length > 0 && (
-        <Box display="flex" flexWrap="wrap" gap={3} mt={2}>
-          {filteredAgreements.map((agreement, index) => {
-            const agreementValue = JSON.parse(agreement.value || "{}");
-            const { complete } = evaluateAgreementCompleteness(agreementValue);
+      {!loading && !error && visibleAgreements.length > 0 && (
+        <>
+          <Box display="flex" flexWrap="wrap" gap={3} mt={2}>
+            {visibleAgreements.map((agreement, index) => {
+              const agreementValue = JSON.parse(agreement.value || "{}");
+              const { complete } = evaluateAgreementCompleteness(agreementValue);
 
-            const provider = agreementValue["ids:provider"]?.["@id"] || "N/A";
-            const consumer = agreementValue["ids:consumer"]?.["@id"] || "N/A";
-            const start = agreementValue["ids:contractStart"]?.["@value"];
-            const end = agreementValue["ids:contractEnd"]?.["@value"];
-            const contractDate = agreementValue["ids:contractDate"]?.["@value"];
-            const permissions = agreementValue["ids:permission"] || [];
-            const contractId = agreement._links?.self?.href || "Unknown ID";
+              const provider = agreementValue["ids:provider"]?.["@id"] || "N/A";
+              const consumer = agreementValue["ids:consumer"]?.["@id"] || "N/A";
+              const start = agreementValue["ids:contractStart"]?.["@value"];
+              const end = agreementValue["ids:contractEnd"]?.["@value"];
+              const contractDate = agreementValue["ids:contractDate"]?.["@value"];
+              const permissions = agreementValue["ids:permission"] || [];
+              const contractId = agreement._links?.self?.href || "Unknown ID";
 
-            const title = permissions?.[0]?.["ids:title"]?.[0]?.["@value"] || `Agreement #${index + 1}`;
-            const description = permissions?.[0]?.["ids:description"]?.[0]?.["@value"] || "No description provided";
+              const title = permissions?.[0]?.["ids:title"]?.[0]?.["@value"] || `Agreement #${index + 1}`;
+              const description = permissions?.[0]?.["ids:description"]?.[0]?.["@value"] || "No description provided";
 
-            return (
-              <Box key={index} sx={{ flex: "1 1 calc(33.33% - 16px)", minWidth: 280, maxWidth: "100%" }}>
-                <Card sx={{ minHeight: 400, transition: "0.3s", "&:hover": { boxShadow: 6 }, borderLeft: complete ? "5px solid #4caf50" : "5px solid #f44336" }}>
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom><strong>Title:</strong> {title}</Typography>
-                    <Typography variant="body2" gutterBottom><strong>Description:</strong> {description}</Typography>
+              return (
+                <Box key={index} sx={{ flex: "1 1 calc(33.33% - 16px)", minWidth: 280, maxWidth: "100%" }}>
+                  <Card sx={{ minHeight: 400, transition: "0.3s", "&:hover": { boxShadow: 6 }, borderLeft: complete ? "5px solid #4caf50" : "5px solid #f44336" }}>
+                    <CardContent>
+                      <Typography variant="h6" gutterBottom><strong>Title:</strong> {title}</Typography>
+                      <Typography variant="body2" gutterBottom><strong>Description:</strong> {description}</Typography>
 
-                    <Divider sx={{ my: 1 }} />
+                      <Divider sx={{ my: 1 }} />
 
-                    <Box display="flex" flexDirection="column" gap={0.75}>
-                      <Typography variant="body2"><strong>Provider:</strong> {provider}</Typography>
-                      <Typography variant="body2"><strong>Consumer:</strong> {consumer}</Typography>
-                      <Typography variant="body2"><strong>Contract ID:</strong> {contractId}</Typography>
-                      <Typography variant="body2"><strong>Contract Date:</strong> {contractDate ? new Date(contractDate).toLocaleString() : "N/A"}</Typography>
-                      <Typography variant="body2"><strong>Start:</strong> {start ? new Date(start).toLocaleString() : "N/A"}</Typography>
-                      <Typography variant="body2"><strong>End:</strong> {end ? new Date(end).toLocaleString() : "N/A"}</Typography>
-                    </Box>
+                      <Box display="flex" flexDirection="column" gap={0.75}>
+                        <Typography variant="body2"><strong>Provider:</strong> {provider}</Typography>
+                        <Typography variant="body2"><strong>Consumer:</strong> {consumer}</Typography>
+                        <Typography variant="body2"><strong>Contract ID:</strong> {contractId}</Typography>
+                        <Typography variant="body2"><strong>Contract Date:</strong> {contractDate ? new Date(contractDate).toLocaleString() : "N/A"}</Typography>
+                        <Typography variant="body2"><strong>Start:</strong> {start ? new Date(start).toLocaleString() : "N/A"}</Typography>
+                        <Typography variant="body2"><strong>End:</strong> {end ? new Date(end).toLocaleString() : "N/A"}</Typography>
+                      </Box>
 
-                    <Divider sx={{ my: 1 }} />
+                      <Divider sx={{ my: 1 }} />
 
-                    <Typography variant="h6" gutterBottom>Contract Details</Typography>
-                    {permissions.length > 0 ? permissions.map((perm, pIndex) => {
-                      const action = perm["ids:action"]?.[0]?.["@id"]?.split("/")?.pop();
-                      const target = perm["ids:target"]?.["@id"];
-                      return (
-                        <React.Fragment key={pIndex}>
-                          <Typography variant="body2"><strong>Action:</strong> {action || "N/A"}</Typography>
-                          <Typography variant="body2"><strong>Target:</strong> {target || "N/A"}</Typography>
-                          {pIndex < permissions.length - 1 && <Divider sx={{ my: 0.5 }} />}
-                        </React.Fragment>
-                      );
-                    }) : <Typography variant="body2" color="textSecondary">No contract details available.</Typography>}
+                      <Typography variant="h6" gutterBottom>Contract Details</Typography>
+                      {permissions.length > 0 ? permissions.map((perm, pIndex) => {
+                        const action = perm["ids:action"]?.[0]?.["@id"]?.split("/")?.pop();
+                        const target = perm["ids:target"]?.["@id"];
+                        return (
+                          <React.Fragment key={pIndex}>
+                            <Typography variant="body2"><strong>Action:</strong> {action || "N/A"}</Typography>
+                            <Typography variant="body2"><strong>Target:</strong> {target || "N/A"}</Typography>
+                            {pIndex < permissions.length - 1 && <Divider sx={{ my: 0.5 }} />}
+                          </React.Fragment>
+                        );
+                      }) : <Typography variant="body2" color="textSecondary">No contract details available.</Typography>}
 
-                    {/* --- ReceivedData component --- */}
-                    <ReceivedData agreementSelfLink={contractId} />
+                      <ReceivedData agreementSelfLink={contractId} />
+                    </CardContent>
+                  </Card>
+                </Box>
+              );
+            })}
+          </Box>
 
-                  </CardContent>
-                </Card>
-              </Box>
-            );
-          })}
-        </Box>
+          {/* Show More button */}
+          {visibleCount < filteredAgreements.length && (
+            <Box display="flex" justifyContent="center" mt={3}>
+              <Button variant="outlined" onClick={() => setVisibleCount(visibleCount + 4)} color="secondary">
+                Show More
+              </Button>
+            </Box>
+          )}
+        </>
       )}
     </Box>
   );
