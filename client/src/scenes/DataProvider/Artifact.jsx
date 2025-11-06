@@ -25,7 +25,7 @@ const Artifact = () => {
           p="1.5rem"
           borderRadius="1rem"
           bgcolor={theme.palette.background.alt}
-          sx={{ boxShadow: 3, minHeight: "200px" }}>
+          sx={{ boxShadow: 3, minHeight: "200px" }}> 
           <ArtifactOverview />
         </Box>
 

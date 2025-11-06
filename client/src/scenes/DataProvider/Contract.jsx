@@ -14,7 +14,7 @@ const Contract = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="New Contract" subtitle="Create a New Contract here." />
+      <Header title="Contracts" subtitle="Create a New Contract here." />
       {/* Two-column layout */}
       <Box
         display="flex"
